@@ -43,6 +43,10 @@ const (
 	PrometheusRuleKind    = "PrometheusRule"
 	PrometheusRuleName    = "prometheusrules"
 	PrometheusRuleKindKey = "prometheusrule"
+
+	ThanosRulerKind    = "ThanosRuler"
+	ThanosRulerName    = "thanosrulers"
+	ThanosRulerKindKey = "thanosrulers"
 )
 
 // Prometheus defines a Prometheus deployment.
