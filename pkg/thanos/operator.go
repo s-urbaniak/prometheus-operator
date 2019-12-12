@@ -29,7 +29,7 @@ import (
 	"github.com/go-kit/kit/log/level"
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
-	extensionsobj "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	extensionsobj "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	apiextensionsclient "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -357,7 +357,7 @@ func (c *Operator) createCRDs() error {
 		k8sutil.NewCustomResourceDefinition(c.config.CrdKinds.ThanosRuler, monitoring.GroupName, c.config.Labels.LabelsMap, c.config.EnableValidation),
 	}
 
-	crdClient := c.crdclient.ApiextensionsV1beta1().CustomResourceDefinitions()
+	crdClient := c.crdclient.ApiextensionsV1().CustomResourceDefinitions()
 
 	for _, crd := range crds {
 		oldCRD, err := crdClient.Get(crd.Name, metav1.GetOptions{})
