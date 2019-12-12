@@ -17,7 +17,7 @@ EMBEDMD_BINARY:=$(FIRST_GOPATH)/bin/embedmd
 
 TYPES_V1_TARGET:=pkg/apis/monitoring/v1/types.go
 
-CRD_TYPES := alertmanagers podmonitors prometheuses prometheusrules servicemonitors
+CRD_TYPES := alertmanagers podmonitors prometheuses prometheusrules servicemonitors thanosrulers
 CRD_YAML_FILES := $(foreach name,$(CRD_TYPES),example/prometheus-operator-crd/monitoring.coreos.com_$(name).yaml)
 
 CRD_JSONNET_FILES := jsonnet/prometheus-operator/alertmanager-crd.libsonnet
@@ -25,6 +25,7 @@ CRD_JSONNET_FILES += jsonnet/prometheus-operator/podmonitor-crd.libsonnet
 CRD_JSONNET_FILES += jsonnet/prometheus-operator/prometheus-crd.libsonnet
 CRD_JSONNET_FILES += jsonnet/prometheus-operator/prometheusrule-crd.libsonnet
 CRD_JSONNET_FILES += jsonnet/prometheus-operator/servicemonitor-crd.libsonnet
+CRD_JSONNET_FILES += jsonnet/prometheus-operator/thanosruler-crd.libsonnet
 
 BINDATA_TARGET := pkg/apis/monitoring/v1/bindata.go
 
@@ -161,6 +162,7 @@ $(CRD_JSONNET_FILES): $(GOJSONTOYAML_BINARY) $(CRD_YAML_FILES)
 	cat example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml | gojsontoyaml -yamltojson > jsonnet/prometheus-operator/servicemonitor-crd.libsonnet
 	cat example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml     | gojsontoyaml -yamltojson > jsonnet/prometheus-operator/podmonitor-crd.libsonnet
 	cat example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml | gojsontoyaml -yamltojson > jsonnet/prometheus-operator/prometheusrule-crd.libsonnet
+	cat example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml    | gojsontoyaml -yamltojson > jsonnet/prometheus-operator/thanosrulers-crd.libsonnet
 
 bundle.yaml: $(shell find example/rbac/prometheus-operator/*.yaml -type f)
 	scripts/generate-bundle.sh
